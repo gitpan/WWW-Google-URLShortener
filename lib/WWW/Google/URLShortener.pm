@@ -17,11 +17,11 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 Readonly my $API_VERSION => 'v1';
 Readonly my $API_URL     => "https://www.googleapis.com/urlshortener/$API_VERSION/url";
 
@@ -31,8 +31,8 @@ The Google URL Shortener  at  goo.gl  is a service that takes long URLs and sque
 fewer characters to make a link that is easier to share, tweet, or email to friends. Currently
 it supports version v1.
 
-IMPORTANT:  The  version  v1  of the Google Buzz API is in Labs, and its features might change
-unexpectedly until it graduates.
+IMPORTANT: The version  v1  of the Google URL Shortener API is in Labs, and its features might
+change unexpectedly until it graduates.
 
 =head1 CONSTRUCTOR
 

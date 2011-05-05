@@ -20,7 +20,7 @@ name: WWW-Google-URLShortener
 provides:
   WWW::Google::URLShortener:
     file: lib/WWW/Google/URLShortener.pm
-    version: 0.01
+    version: 0.02
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02
