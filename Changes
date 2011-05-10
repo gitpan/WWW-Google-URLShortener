@@ -1,5 +1,10 @@
 Revision history for WWW-Google-URLShortener
 
+0.03    Tue May 10 12:34:12 2011
+        - Fixed typo in the method shorten_url(), misspelt 'croak'.
+        - Fixed typo in the method expand_url(), misspelt 'croak'.
+        - Fixed typo in the method get_analytics(), misspelt 'croak'.
+
 0.02    Thu May 05 16:47:10 2011
         - Fixed typo in the pod for title "DESCRIPTION".
 

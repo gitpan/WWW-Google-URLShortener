@@ -17,11 +17,11 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 Readonly my $API_VERSION => 'v1';
 Readonly my $API_URL     => "https://www.googleapis.com/urlshortener/$API_VERSION/url";
 
@@ -92,7 +92,7 @@ sub shorten_url
     croak("ERROR: Couldn't process $url [".$response->status_line . "]\n")
         unless $response->is_success;
     $content  = $response->content();
-    craok("ERROR: No data found.\n")
+    croak("ERROR: No data found.\n")
         unless defined $content;
 
     $content  = from_json($content);
@@ -128,7 +128,7 @@ sub expand_url
     croak("ERROR: Couldn't process ".$self->{base_url}." [".$response->status_line . "]\n")
         unless $response->is_success;
     $content  = $response->content();
-    craok("ERROR: No data found.\n")
+    croak("ERROR: No data found.\n")
         unless defined $content;
 
     $content  = from_json($content);
@@ -164,7 +164,7 @@ sub get_analytics
     croak("ERROR: Couldn't process ".$self->{base_url}." [".$response->status_line . "]\n")
         unless $response->is_success;
     $content  = $response->content();
-    craok("ERROR: No data found.\n")
+    croak("ERROR: No data found.\n")
         unless defined $content;
 
     $content  = from_json($content);
