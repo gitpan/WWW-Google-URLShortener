@@ -1,5 +1,8 @@
 Revision history for WWW-Google-URLShortener
 
+0.04    Wed May 25 11:26:34 2011
+        - Added link to the License information.
+
 0.03    Tue May 10 12:34:12 2011
         - Fixed typo in the method shorten_url(), misspelt 'croak'.
         - Fixed typo in the method expand_url(), misspelt 'croak'.

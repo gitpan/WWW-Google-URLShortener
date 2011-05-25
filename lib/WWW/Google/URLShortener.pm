@@ -17,11 +17,11 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 Readonly my $API_VERSION => 'v1';
 Readonly my $API_URL     => "https://www.googleapis.com/urlshortener/$API_VERSION/url";
 
@@ -270,12 +270,12 @@ This  program  is  free  software; you can redistribute it and/or modify it unde
 either:  the  GNU  General Public License as published by the Free Software Foundation; or the
 Artistic License.
 
+See http://dev.perl.org/licenses/ for more information.
+
 =head1 DISCLAIMER
 
 This  program  is  distributed  in  the hope that it will be useful, but WITHOUT ANY WARRANTY;
 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
