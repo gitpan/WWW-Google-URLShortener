@@ -1,5 +1,9 @@
 Revision history for WWW-Google-URLShortener
 
+0.05    Mon Aug 08 13:06:11 2011
+        - Made Readonly v1.03 as minimum requirement.
+        - Prepared the distribution using the Module::Signature v0.68.
+
 0.04    Wed May 25 11:26:34 2011
         - Added link to the License information.
 

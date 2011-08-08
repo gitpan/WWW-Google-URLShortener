@@ -17,11 +17,11 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 Readonly my $API_VERSION => 'v1';
 Readonly my $API_URL     => "https://www.googleapis.com/urlshortener/$API_VERSION/url";
 

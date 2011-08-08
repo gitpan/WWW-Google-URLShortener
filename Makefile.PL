@@ -10,7 +10,7 @@ WriteMakefile(
     clean         => { FILES => 'WWW-Google-URLShortener-*' },
     PREREQ_PM     => {
         'Test::More'          => 0,
-        'Readonly'            => 0,
+        'Readonly'            => '1.03',
         'HTTP::Request'       => '1.40',
         'LWP::UserAgent'      => '2.33',
         'JSON'                => '2.15',
