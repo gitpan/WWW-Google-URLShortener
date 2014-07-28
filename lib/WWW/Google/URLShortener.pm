@@ -1,15 +1,25 @@
 package WWW::Google::URLShortener;
 
-use strict; use warnings;
+$WWW::Google::URLShortener::VERSION = '0.06';
 
-use Carp;
-use Readonly;
+use 5.006;
+use JSON;
 use Data::Dumper;
 
-use JSON;
-use HTTP::Request;
-use LWP::UserAgent;
-use Data::Validate::URI qw/is_web_uri/;
+use WWW::Google::UserAgent;
+use WWW::Google::URLShortener::Params qw(validate);
+use WWW::Google::URLShortener::Analytics;
+use WWW::Google::URLShortener::Analytics::Result;
+use WWW::Google::URLShortener::Analytics::Result::Country;
+use WWW::Google::URLShortener::Analytics::Result::Browser;
+use WWW::Google::URLShortener::Analytics::Result::Referrer;
+use WWW::Google::URLShortener::Analytics::Result::Platform;
+
+use Moo;
+use namespace::clean;
+extends 'WWW::Google::UserAgent';
+
+our $BASE_URL = 'https://www.googleapis.com/urlshortener/v1/url';
 
 =head1 NAME
 
@@ -17,210 +27,153 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
-Readonly my $API_VERSION => 'v1';
-Readonly my $API_URL     => "https://www.googleapis.com/urlshortener/$API_VERSION/url";
-
 =head1 DESCRIPTION
 
-The Google URL Shortener  at  goo.gl  is a service that takes long URLs and squeezes them into
-fewer characters to make a link that is easier to share, tweet, or email to friends. Currently
-it supports version v1.
+The Google URL Shortener at goo.gl is a service that takes long URLs and squeezes
+them into fewer characters to make a link that is easier to share, tweet or email
+to friends. Currently it supports version v1.
 
-IMPORTANT: The version  v1  of the Google URL Shortener API is in Labs, and its features might
-change unexpectedly until it graduates.
+IMPORTANT: The version v1 of Google URL Shortener API is in Labs and its features
+might change unexpectedly until it graduates.
 
 =head1 CONSTRUCTOR
 
-The constructor expects your application API, which you can get it for FREE from Google.
+The constructor expects your application API, get it for FREE from Google.
 
     use strict; use warnings;
     use WWW::Google::URLShortener;
 
     my $api_key = 'Your_API_Key';
-    my $google  = WWW::Google::URLShortener->new($api_key);
-
-=cut
-
-sub new
-{
-    my $class   = shift;
-    my $api_key = shift;
-    croak("ERROR: API Key is missing.\n")
-        unless defined $api_key;
-
-    my $self = { api_key  => $api_key,
-                 base_url => $API_URL . '?key=' . $api_key,
-                 browser => LWP::UserAgent->new(),
-               };
-    bless $self, $class;
-    return $self;
-}
+    my $google  = WWW::Google::URLShortener->new({ api_key => $api_key });
 
 =head1 METHODS
 
 =head2 shorten_url()
 
-Returns the shorten  url  for the given long url as provided by Google URL Shortener API. This
-method expects one scalar parameter i.e. the long url.
+Returns the shorten url for the given long url as provided by Google URL Shortener
+API. This method expects one scalar parameter i.e. the long url.
 
     use strict; use warnings;
     use WWW::Google::URLShortener;
 
     my $api_key = 'Your_API_Key';
-    my $google  = WWW::Google::URLShortener->new($api_key);
+    my $google  = WWW::Google::URLShortener->new({ api_key => $api_key });
     print $google->shorten_url('http://www.google.com');
 
 =cut
 
-sub shorten_url
-{
-    my $self = shift;
-    my $url  = shift;
-    croak("ERROR: Missing URL.\n")
-        unless defined $url;
-    croak("ERROR: Invalid URL supplied [$url].\n")
-        unless is_web_uri($url);
-        
-    my ($request, $response, $content);    
-    $request  = $self->_prepare_request({longUrl => $url});
-    $response = $self->{browser}->request($request);
-    croak("ERROR: Couldn't process $url [".$response->status_line . "]\n")
-        unless $response->is_success;
-    $content  = $response->content();
-    croak("ERROR: No data found.\n")
-        unless defined $content;
+sub shorten_url {
+    my ($self, $long_url) = @_;
 
-    $content  = from_json($content);
-    return $content->{id};
+    validate({ longUrl => 1 }, { longUrl => $long_url });
+
+    my $url      = sprintf("%s?key=%s", $BASE_URL, $self->api_key);
+    my $headers  = { 'Content-Type' => 'application/json' };
+    my $content  = to_json({ longUrl => $long_url });
+    my $response = $self->post($url, $headers, $content);
+    my $contents = from_json($response->{content});
+
+    return $contents->{id};
 }
 
 =head2 expand_url()
 
-Returns the expaned url  for the given long url as provided by Google URL Shortener API.  This
-method expects one scalar parameter i.e. the short url.
+Returns the expaned url for the given long url as provided by Google URL Shortener
+API. This method expects one scalar parameter i.e. the short url.
 
     use strict; use warnings;
     use WWW::Google::URLShortener;
 
     my $api_key = 'Your_API_Key';
-    my $google  = WWW::Google::URLShortener->new($api_key);
+    my $google  = WWW::Google::URLShortener->new({ api_key => $api_key });
     print $google->expand_url('http://goo.gl/fbsS');
 
 =cut
 
-sub expand_url
-{
-    my $self = shift;
-    my $url  = shift;
-    croak("ERROR: Missing URL.\n")
-        unless defined $url;
-    croak("ERROR: Invalid URL supplied [$url].\n")
-        unless is_web_uri($url);
-    
-    my ($request, $response, $content);    
-    $request  = $self->_prepare_request({shortUrl => $url});    
-    $response = $self->{browser}->request($request);
-    croak("ERROR: Couldn't process ".$self->{base_url}." [".$response->status_line . "]\n")
-        unless $response->is_success;
-    $content  = $response->content();
-    croak("ERROR: No data found.\n")
-        unless defined $content;
+sub expand_url {
+    my ($self, $short_url) = @_;
 
-    $content  = from_json($content);
+    validate({ shortUrl => 1 }, { shortUrl => $short_url });
+
+    my $url      = sprintf("%s?shortUrl=%s", $BASE_URL, $short_url);
+    my $response = $self->get($url);
+    my $content  = from_json($response->{content});
+
     return $content->{longUrl};
 }
 
 =head2 get_analytics()
 
-Returns the analytics  for  the given short url as provided by Google URL Shortener API in the
-XML format. This method expects one scalar parameter i.e. the short url.
+Returns the object of L<WWW::Google::URLShortener::Analytics>.
 
     use strict; use warnings;
     use WWW::Google::URLShortener;
 
-    my $api_key = 'Your_API_Key';
-    my $google  = WWW::Google::URLShortener->new($api_key);
-    print $google->get_analytics('http://goo.gl/fbsS');
+    my $api_key   = 'Your_API_Key';
+    my $google    = WWW::Google::URLShortener->new({ api_key => $api_key });
+    my $analytics = $google->get_analytics('http://goo.gl/fbsS');
 
 =cut
 
-sub get_analytics
-{
-    my $self = shift;
-    my $url  = shift;
-    croak("ERROR: Missing URL.\n")
-        unless defined $url;
-    croak("ERROR: Invalid URL supplied [$url].\n")
-        unless is_web_uri($url);
-    
-    my ($request, $response, $content);    
-    $request  = $self->_prepare_request({shortUrl => $url, analytics => 1});    
-    $response = $self->{browser}->request($request);
-    croak("ERROR: Couldn't process ".$self->{base_url}." [".$response->status_line . "]\n")
-        unless $response->is_success;
-    $content  = $response->content();
-    croak("ERROR: No data found.\n")
-        unless defined $content;
+sub get_analytics {
+    my ($self, $short_url) = @_;
 
-    $content  = from_json($content);
-    return _get_analytics($content);
+    validate({ shortUrl => 1 }, { shortUrl => $short_url });
+
+    my $url      = sprintf("%s?shortUrl=%s&projection=FULL", $BASE_URL, $short_url);
+    my $response = $self->get($url);
+    my $content  = from_json($response->{content});
+
+    return _analytics($content);
 }
 
-sub _prepare_request
-{
-    my $self    = shift;
-    my $data    = shift;
-    
-    return HTTP::Request->new(GET => $API_URL . '?shortUrl=' . $data->{shortUrl} . '&projection=FULL')
-        if exists($data->{analytics});
-        
-    return HTTP::Request->new(GET => $API_URL . '?shortUrl=' . $data->{shortUrl})
-        if exists($data->{shortUrl});
+sub _analytics {
+    my ($data) = @_;
 
-    my $request = HTTP::Request->new(POST => $self->{base_url});
-    $request->header('Content-Type' => 'application/json');
-    $request->content(to_json($data));
-    return $request;
-}
+    my $results = [];
+    foreach my $type (keys %{$data->{analytics}}) {
 
-sub _get_analytics
-{
-    my $data = shift;
-    my $xml  = qq {<?xml version="1.0" encoding="UTF-8"?>\n};
-    $xml .= qq {<analytics>\n};
-    foreach my $type (keys %{$data->{'analytics'}})
-    {
-        $xml .= qq {\t<$type>\n};
-        $xml .= qq {\t\t<clicks shortUrl="} . 
-                $data->{'analytics'}->{$type}->{longUrlClicks} .
-                qq {" longUrl="}. $data->{'analytics'}->{$type}->{longUrlClicks} . 
-                qq{"/>\n};
-        foreach (keys %{$data->{'analytics'}->{$type}})
-        {
-            next unless ref($data->{'analytics'}->{$type}->{$_});
-            $xml .= qq {\t\t<$_>\n};
-            my $id;
-            if ($_ eq 'countries')
-            {
-                $id = 'country';
-            }
-            else
-            {
-                $id = substr($_,0,length($_)-1);
-            }    
-            map { $xml .= qq {\t\t\t<$id id="} . $_->{id}. qq{" count="}. $_->{count} .qq{"/>\n}; } @{$data->{'analytics'}->{$type}->{$_}};
-            $xml .= qq {\t\t</$_>\n};
+        my $countries = [];
+        foreach my $country (@{$data->{analytics}->{$type}->{countries}}) {
+            push @$countries, WWW::Google::URLShortener::Analytics::Result::Country->new($country);
         }
-        $xml .= qq {\t</$type>\n};
+
+        my $platforms = [];
+        foreach my $platform (@{$data->{analytics}->{$type}->{platforms}}) {
+            push @$platforms, WWW::Google::URLShortener::Analytics::Result::Platform->new($platform);
+        }
+
+        my $browsers = [];
+        foreach my $browser (@{$data->{analytics}->{$type}->{browsers}}) {
+            push @$browsers, WWW::Google::URLShortener::Analytics::Result::Browser->new($browser);
+        }
+
+        my $referrers = [];
+        foreach my $referrer (@{$data->{analytics}->{$type}->{referrers}}) {
+            push @$referrers, WWW::Google::URLShortener::Analytics::Result::Referrer->new($referrer);
+        }
+
+        push @$results,
+        WWW::Google::URLShortener::Analytics::Result->new(
+            type           => $type,
+            shortUrlClicks => $data->{analytics}->{$type}->{shortUrlClicks},
+            longUrlClicks  => $data->{analytics}->{$type}->{longUrlClicks},
+            countries      => $countries,
+            referrers      => $referrers,
+            browsers       => $browsers,
+            platforms      => $platforms );
     }
-    $xml .= qq {</analytics>\n};
-    
-    return $xml;
+
+    return WWW::Google::URLShortener::Analytics->new(
+        id      => $data->{id},
+        longUrl => $data->{longUrl},
+        created => $data->{created},
+        kind    => $data->{kind},
+        result  => $results );
 }
 
 =head1 AUTHOR
@@ -229,10 +182,10 @@ Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
 
 =head1 BUGS
 
-Please  report  any bugs or feature requests to C<bug-www-google-urlshortener at rt.cpan.org>,
-or through the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Google-URLShortener>.  
-I will be notified and then you'll automatically be notified of progress on your bug as I make
-changes.
+Please  report  any bugs  or feature requests to C<bug-www-google-urlshortener at
+rt.cpan.org>, or through the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Google-URLShortener>.
+I will be notified, and then you'll automatically be notified of progress on your
+bug as I make changes.
 
 =head1 SUPPORT
 
@@ -244,7 +197,7 @@ You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker
+=item * RT: CPAN's request tracker (report bugs here)
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Google-URLShortener>
 
@@ -264,18 +217,41 @@ L<http://search.cpan.org/dist/WWW-Google-URLShortener/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Mohammad S Anwar.
+Copyright 2014 Mohammad S Anwar.
 
-This  program  is  free  software; you can redistribute it and/or modify it under the terms of
-either:  the  GNU  General Public License as published by the Free Software Foundation; or the
-Artistic License.
+This  program  is  free software; you can redistribute it and/or modify it under
+the  terms  of the the Artistic License (2.0). You may obtain a copy of the full
+license at:
 
-See http://dev.perl.org/licenses/ for more information.
+L<http://www.perlfoundation.org/artistic_license_2_0>
 
-=head1 DISCLAIMER
+Any  use,  modification, and distribution of the Standard or Modified Versions is
+governed by this Artistic License.By using, modifying or distributing the Package,
+you accept this license. Do not use, modify, or distribute the Package, if you do
+not accept this license.
 
-This  program  is  distributed  in  the hope that it will be useful, but WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+If your Modified Version has been derived from a Modified Version made by someone
+other than you,you are nevertheless required to ensure that your Modified Version
+ complies with the requirements of this license.
+
+This  license  does  not grant you the right to use any trademark,  service mark,
+tradename, or logo of the Copyright Holder.
+
+This license includes the non-exclusive, worldwide, free-of-charge patent license
+to make,  have made, use,  offer to sell, sell, import and otherwise transfer the
+Package with respect to any patent claims licensable by the Copyright Holder that
+are  necessarily  infringed  by  the  Package. If you institute patent litigation
+(including  a  cross-claim  or  counterclaim) against any party alleging that the
+Package constitutes direct or contributory patent infringement,then this Artistic
+License to you shall terminate on the date that such litigation is filed.
+
+Disclaimer  of  Warranty:  THE  PACKAGE  IS  PROVIDED BY THE COPYRIGHT HOLDER AND
+CONTRIBUTORS  "AS IS'  AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES. THE IMPLIED
+WARRANTIES    OF   MERCHANTABILITY,   FITNESS   FOR   A   PARTICULAR  PURPOSE, OR
+NON-INFRINGEMENT ARE DISCLAIMED TO THE EXTENT PERMITTED BY YOUR LOCAL LAW. UNLESS
+REQUIRED BY LAW, NO COPYRIGHT HOLDER OR CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE
+OF THE PACKAGE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
 

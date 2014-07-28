@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.68.
+signed via the Module::Signature module, version 0.73.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,26 +14,31 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 4e5ab4466add7ef3809b7eddace8d5f75f9d1997 Build.PL
-SHA1 6cd2c82e45ba0f760a1b002240aa4439a985b3aa Changes
-SHA1 bcc14c4d2e4d7ecb8649ca3305c1b64cdfda4168 MANIFEST
-SHA1 7d20e4e840781030202bb045d5ab81b3fd1b68b0 MANIFEST.SKIP
-SHA1 bf90793573e3fc08874415e42dae44bfa0b2da3c META.yml
-SHA1 7612435dd29c1b46bf0dcaa378289f746d029eec Makefile.PL
-SHA1 e8eb11fae7ab38e06ef776ee59570d3984353d57 README
-SHA1 8618097780dd4c550d0deea6a1f88d154d1b6d5c lib/WWW/Google/URLShortener.pm
-SHA1 3f89a40cf3ce96754c90671e464eaf2e2c06b799 t/00-load.t
-SHA1 144feeede87f27dba20abc2abaad2b20df5c5b8d t/01-unit-test.t
-SHA1 2b8ffb7e4f399af95d092743846ac8d438f2c53e t/manifest.t
-SHA1 0765c9ff0cc4319f415bb08d0053b7717a8284a2 t/pod.t
+SHA1 be58d3889dbc83ef60a0f0412297f68cc3852b1e Changes
+SHA1 40ed376da8ce82c53b318910219e90a2efed7a76 MANIFEST
+SHA1 5f29cdcbfacb9c46ac155fff9844aceeb064aef1 MANIFEST.SKIP
+SHA1 9414088919b0cc82ef541380724d17e232458cbe Makefile.PL
+SHA1 7a0731945d98fdfa290fb3ea84f4c8fd7309b060 README
+SHA1 bbf3c46a270b5c3773b6d3fab14a7c220e6d0dcd lib/WWW/Google/URLShortener.pm
+SHA1 c829bfc9b0fc447a2b0ec33bbde87de5ed9c84e6 lib/WWW/Google/URLShortener/Analytics.pm
+SHA1 c227b8850e9448f7c2763a5c148657c23b2b4e87 lib/WWW/Google/URLShortener/Analytics/Result.pm
+SHA1 7494b779a888cbed4bb8b4856b96b5ae953a45d7 lib/WWW/Google/URLShortener/Analytics/Result/Browser.pm
+SHA1 f5a5c92c41ee18b70e1883b346aa3b6492b802ca lib/WWW/Google/URLShortener/Analytics/Result/Country.pm
+SHA1 4d87428f8a62b06cb59981063fd5e76f20a50ff1 lib/WWW/Google/URLShortener/Analytics/Result/Platform.pm
+SHA1 c7d9325eba8957060fb20fa3c486b07ea6ad3efd lib/WWW/Google/URLShortener/Analytics/Result/Referrer.pm
+SHA1 aa87957e88569c99d6fb71f73f27a814f2958eb5 lib/WWW/Google/URLShortener/Params.pm
+SHA1 1ab356c5fb42cb53df0c59ee7d7afaeda94eb5f7 t/00-load.t
+SHA1 6a9612b24cb4768d2625f341316ceedddd9c038a t/01-unit-test.t
+SHA1 3e86d3e277d4233e55b8a4555bf6edf2dcdf7bd0 t/manifest.t
+SHA1 a572bbed348e70b106f01fa02fee8b8edd6735d5 t/pod.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.14 (MingW32)
+Version: GnuPG v1
 
-iQEcBAEBAgAGBQJOP9GGAAoJEPYcXBXhRYOhdZoIAKU1qdiUBBF+frFIUD5Mp6m7
-ZQofP3pPI1n5lR1945HAg14yR0gAIpBYSyauEmmxrBboGNcNC4fzehI2jDUrCbBR
-t8vlnmIva0iidmv4gFQXbwsRirFbFqLLlCe+5mRAcXr7wZv2R0ua1aVknM+xa0Aa
-/ufpPfl/OoLqpZKz/ALz2KxOI1VSUiL+3O8BbXjRkKUTFBkvZIacvkudffQOXLnE
-6ZxObmtHnJxlFYthQnUrO8ba3+M2yUKfI52PS6U5nu20JjyYjqsLzuigCtILhg1B
-Vv+kz4KRdXwnY53xuI0j2lfZAuyQYxVIbKgkQToqKR1e/mu8aX6zcFQeeUA3CEg=
-=VoHQ
+iQEcBAEBAgAGBQJT1tknAAoJENoXJXWo7C/pScAH/RVSiRzIQF2+LP+84AX/SiaY
+Tr1HHsNZE/buTIYOQ1BjKyn2T9Dp6oNtpJTBlJ9YufEa0EOdr5jG4gyJJydIpOZk
+eaRtfgKx5F9iWiRFtaW4mxqaV2ZnE29waGSa8Z1yJGPwKlrSNB0iC/Lics6xq5uF
+2W2Kt2p46HI42A86NVlqGEhRZCKIoHcOEvYcNp43c9J8vVto/jKmgdwQBpgffkLR
+VTnGDiz1Ao/oHTJAi5dz6pifqcN0obgAd1Q/nFFPtBS1vL94hWLDAXdFCb8Dsgr6
+7Ky1Hpj2nvwVWM847lNX3qvQy9sP/KwUPZsCTPIG1WLFHbYDBVPWSfoi1j+3clE=
+=A/B9
 -----END PGP SIGNATURE-----

@@ -1,5 +1,10 @@
 Revision history for WWW-Google-URLShortener
 
+0.06    Tue Jul 29 00:01:00 2014
+        - Complete restructure the code base using 'Moo'
+        - Making use of common library WWW::Google::UserAgent
+        - Present the result in object way for ease.
+
 0.05    Mon Aug 08 13:06:11 2011
         - Made Readonly v1.03 as minimum requirement.
         - Prepared the distribution using the Module::Signature v0.68.
