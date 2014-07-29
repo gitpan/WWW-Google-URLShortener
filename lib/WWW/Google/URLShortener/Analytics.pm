@@ -1,6 +1,6 @@
 package WWW::Google::URLShortener::Analytics;
 
-$WWW::Google::URLShortener::Analytics::VERSION = '0.06';
+$WWW::Google::URLShortener::Analytics::VERSION = '0.07';
 
 use 5.006;
 use Moo;
@@ -12,7 +12,7 @@ WWW::Google::URLShortener::Analytics - Placeholder for the analytics of short UR
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
