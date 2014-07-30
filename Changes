@@ -1,5 +1,9 @@
 Revision history for WWW-Google-URLShortener
 
+0.08    Wed Jul 30 22:35:19 2914
+        - Added missing pre-requisite 'JSON'
+        - Added SYNOPSIS to WWW::Google::URLShortener::Analytics
+
 0.07    Tue Jul 29 15:44:25 2014
         - Updated Makefile.PL to make the pre-requisite WWW::Google::UserAgent v0.07
 

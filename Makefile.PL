@@ -19,6 +19,7 @@ WriteMakefile(
     },
     PREREQ_PM => {
         'Moo'                    => 0,
+        'JSON'                   => 0,
         'namespace::clean'       => 0,
         'WWW::Google::UserAgent' => '0.07',
     },

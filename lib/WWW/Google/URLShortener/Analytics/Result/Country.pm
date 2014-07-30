@@ -3,6 +3,8 @@ package WWW::Google::URLShortener::Analytics::Result::Country;
 $WWW::Google::URLShortener::Analytics::Result::Country::VERSION = '0.07';
 
 use 5.006;
+use overload q{""} => 'as_string', fallback => 1;
+
 use Moo;
 use namespace::clean;
 
@@ -18,6 +20,12 @@ Version 0.07
 
 has id    => (is => 'ro');
 has count => (is => 'ro');
+
+sub as_string {
+    my ($self) = @_;
+
+    return sprintf("Id: %s, Count: %d", $self->id, $self->count);
+}
 
 =head1 METHODS
 

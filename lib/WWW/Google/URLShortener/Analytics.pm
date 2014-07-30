@@ -1,6 +1,6 @@
 package WWW::Google::URLShortener::Analytics;
 
-$WWW::Google::URLShortener::Analytics::VERSION = '0.07';
+$WWW::Google::URLShortener::Analytics::VERSION = '0.08';
 
 use 5.006;
 use Moo;
@@ -12,7 +12,7 @@ WWW::Google::URLShortener::Analytics - Placeholder for the analytics of short UR
 
 =head1 VERSION
 
-Version 0.07
+Version 0.08
 
 =cut
 
@@ -22,6 +22,39 @@ has kind    => (is => 'ro');
 has result  => (is => 'ro');
 
 =head1 SYNOPSIS
+
+    use strict; use warnings;
+    use WWW::Google::URLShortener;
+
+    my $api_key   = 'Your API Key';
+    my $short_url = 'Your Short URL';
+    my $google    = WWW::Google::URLShortener->new( 'api_key' => $api_key );
+    my $analytics = $google->get_analytics($short_url);
+
+    print "Id: ", $analytics->id, "\n";
+    print "Long URL: ", $analytics->longUrl, "\n";
+    print "Kind: ", $analytics->kind, "\n";
+    foreach my $result (@{$analytics->result}) {
+        print "Type: ", $result->type, "\n";
+        print "Short URL Clicks: ", $result->shortUrlClicks, "\n";
+        print "Long URL Clicks: ", $result->longUrlClicks, "\n";
+        print "Countries:\n";
+        foreach my $country (@{$result->countries}) {
+            print $country->as_string, "\n";
+        }
+        print "Browsers:\n";
+        foreach my $browser (@{$result->browsers}) {
+            print $browser->as_string, "\n";
+        }
+        print "Platforms:\n";
+        foreach my $platform (@{$result->platforms}) {
+            print $platform->as_string, "\n";
+        }
+        print "Referrers:\n";
+        foreach my $referrer (@{$result->referrers}) {
+            print $referrer->as_string, "\n";
+        }
+    }
 
 =head1 METHODS
 

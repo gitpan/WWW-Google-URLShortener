@@ -1,6 +1,6 @@
 package WWW::Google::URLShortener;
 
-$WWW::Google::URLShortener::VERSION = '0.07';
+$WWW::Google::URLShortener::VERSION = '0.08';
 
 use 5.006;
 use JSON;
@@ -27,7 +27,7 @@ WWW::Google::URLShortener - Interface to Google URL Shortener API.
 
 =head1 VERSION
 
-Version 0.07
+Version 0.08
 
 =cut
 

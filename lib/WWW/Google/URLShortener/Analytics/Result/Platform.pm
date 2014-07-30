@@ -3,6 +3,8 @@ package WWW::Google::URLShortener::Analytics::Result::Platform;
 $WWW::Google::URLShortener::Analytics::Result::Platform::VERSION = '0.07';
 
 use 5.006;
+use overload q{""} => 'as_string', fallback => 1;
+
 use Moo;
 use namespace::clean;
 
@@ -15,6 +17,12 @@ WWW::Google::URLShortener::Analytics::Result::Platform - Placeholder for the res
 Version 0.07
 
 =cut
+
+sub as_string {
+    my ($self) = @_;
+
+    return sprintf("Id: %s, Count: %d", $self->id, $self->count);
+}
 
 has id    => (is => 'ro');
 has count => (is => 'ro');
