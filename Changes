@@ -1,6 +1,9 @@
 Revision history for WWW-Google-URLShortener
 
-0.08    Wed Jul 30 22:35:19 2914
+0.09    Sat Aug 09 00:33:20 2014
+        - Tidied up README file.
+
+0.08    Wed Jul 30 22:35:19 2014
         - Added missing pre-requisite 'JSON'
         - Added SYNOPSIS to WWW::Google::URLShortener::Analytics
 
