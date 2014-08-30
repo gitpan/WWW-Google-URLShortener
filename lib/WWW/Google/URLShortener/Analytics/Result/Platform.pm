@@ -1,6 +1,6 @@
 package WWW::Google::URLShortener::Analytics::Result::Platform;
 
-$WWW::Google::URLShortener::Analytics::Result::Platform::VERSION = '0.09';
+$WWW::Google::URLShortener::Analytics::Result::Platform::VERSION = '0.10';
 
 use 5.006;
 use overload q{""} => 'as_string', fallback => 1;
@@ -14,7 +14,7 @@ WWW::Google::URLShortener::Analytics::Result::Platform - Placeholder for the res
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
@@ -40,6 +40,10 @@ Returns the count of the result platform.
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
+
+=head1 REPOSITORY
+
+L<https://github.com/Manwar/WWW-Google-URLShortener>
 
 =head1 BUGS
 

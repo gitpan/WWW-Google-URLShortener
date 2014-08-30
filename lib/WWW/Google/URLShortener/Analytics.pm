@@ -1,6 +1,6 @@
 package WWW::Google::URLShortener::Analytics;
 
-$WWW::Google::URLShortener::Analytics::VERSION = '0.09';
+$WWW::Google::URLShortener::Analytics::VERSION = '0.10';
 
 use 5.006;
 use Moo;
@@ -12,7 +12,7 @@ WWW::Google::URLShortener::Analytics - Placeholder for the analytics of short UR
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
@@ -77,6 +77,10 @@ Returns tle reference to the list of result L<WWW::Google::URLShortener::Analyti
 =head1 AUTHOR
 
 Mohammad S Anwar, C<< <mohammad.anwar at yahoo.com> >>
+
+=head1 REPOSITORY
+
+L<https://github.com/Manwar/WWW-Google-URLShortener>
 
 =head1 BUGS
 

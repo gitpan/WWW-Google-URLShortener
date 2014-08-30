@@ -14,19 +14,19 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 b6456d6907a3087b1faabc1a3147d36512e2492c Changes
+SHA1 ac7349d13d02fb9da5dcf7cafc982a4e130f74b6 Changes
 SHA1 40ed376da8ce82c53b318910219e90a2efed7a76 MANIFEST
 SHA1 5f29cdcbfacb9c46ac155fff9844aceeb064aef1 MANIFEST.SKIP
-SHA1 7b5e8ca5b332315878993df5c9fb5523d9b5aef2 Makefile.PL
+SHA1 df4038743695e46c1ca610b5404eba694ef4c980 Makefile.PL
 SHA1 4d78ebc2e9d9e82037ff39c26cc2604dadd6da88 README
-SHA1 331412b3553aff930a9c8a4cca50320fead67766 lib/WWW/Google/URLShortener.pm
-SHA1 9d4e4c5516f122b0ab3b064353c6f1bb77f151d3 lib/WWW/Google/URLShortener/Analytics.pm
-SHA1 e04b8251f3b0cae27362a52ee10903af159bd9d6 lib/WWW/Google/URLShortener/Analytics/Result.pm
-SHA1 a6937ac43e3c21619f641b2ae3fc768f5326d995 lib/WWW/Google/URLShortener/Analytics/Result/Browser.pm
-SHA1 6f2ec4dd82e017bf2a2b7860c039e66c17b33181 lib/WWW/Google/URLShortener/Analytics/Result/Country.pm
-SHA1 b25a92ed97682ace7bae990e85bdb2324af052ff lib/WWW/Google/URLShortener/Analytics/Result/Platform.pm
-SHA1 913a9037031172e6b1d76d4a44b7237be8c59cd4 lib/WWW/Google/URLShortener/Analytics/Result/Referrer.pm
-SHA1 afa1096b5820569d127397b344663bcd4394e947 lib/WWW/Google/URLShortener/Params.pm
+SHA1 cd66abcc487e1a53d5660e119e93015cba280db5 lib/WWW/Google/URLShortener.pm
+SHA1 fda6278274680a9d4dd2541fbde80986eaefda29 lib/WWW/Google/URLShortener/Analytics.pm
+SHA1 b8c6306b66dbc84ba4cdfeb08b0bae0ccb4af133 lib/WWW/Google/URLShortener/Analytics/Result.pm
+SHA1 09bb35ad856d30aae48634d974e869fc3f574421 lib/WWW/Google/URLShortener/Analytics/Result/Browser.pm
+SHA1 ba771b08b436d387e39119eb7be6d9ba379f82ad lib/WWW/Google/URLShortener/Analytics/Result/Country.pm
+SHA1 ea7155e585379f15386cc81273175759830b1945 lib/WWW/Google/URLShortener/Analytics/Result/Platform.pm
+SHA1 4d81b4b11066f64a90770310c2539e39e60f7ff5 lib/WWW/Google/URLShortener/Analytics/Result/Referrer.pm
+SHA1 e86e0a44c92608ea448f360e54be0cc2fdd16f2e lib/WWW/Google/URLShortener/Params.pm
 SHA1 1ab356c5fb42cb53df0c59ee7d7afaeda94eb5f7 t/00-load.t
 SHA1 6a9612b24cb4768d2625f341316ceedddd9c038a t/01-unit-test.t
 SHA1 3e86d3e277d4233e55b8a4555bf6edf2dcdf7bd0 t/manifest.t
@@ -34,11 +34,11 @@ SHA1 a572bbed348e70b106f01fa02fee8b8edd6735d5 t/pod.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iQEcBAEBAgAGBQJT5WPvAAoJENoXJXWo7C/phfwIAItL726Mfy8OlN7rahkLCtvi
-U2sfP1B/jn+bEHvA7mGMys/wksipr40Dj1ne+865/ifXM21saUq1xzg0l3EuvBPU
-l5Ldv4ZMzN2gwvu8DAkZnzTuNFVhf3n+hq0QMwtU5nBA3PW1Uc4ISHaAehjJfDOo
-aFPdcXD3cEVgwOIEvl13qHe5RMRsZQzAnrUzWUnIkMGy9t8y+FAoLbsaclbVX27K
-fBac73lfabi+Kn3DUHz+VkVkeIDLTrSOdXIV4s1kjfmwarLuqEgVci2x7KQuw6w/
-k7ns4Q4TpESBv7oqaICXMOIzJScvCCUWLkf9HChbz/YcmCDioahEspqGP0UMRHs=
-=/Sa5
+iQEcBAEBAgAGBQJUASLgAAoJENoXJXWo7C/pZ+8H/jgQ0WodD312yEXDF3Z7pOCe
+mQnww29ADGxUKWbzQtDJ2XG8acG4ffTNuJ35PfgCPU6x09x0nN9tK01F06UXspV9
+144xZCgY2mnsu9EgAo0mn9Ayeniyc6bCtI4P3861XV09v52HZHLskejmodjr1IuC
+yViTE633BRaVQSpeshw7eit241fBL2qfwvxdoecD+25QExYm5SNKDH+nC0ZUQbSC
+0XLlJolU83OQeLyQ/dtaOsWjwKUiOIL/VP6+rP8Y/ouSqdK7HiSj61//TvvxaShl
+aP1fTPpP/Nqii6tkuEWOmVKOASuUrJMEndX2jC41mdro8tkh7AF3YXNDvHFoi5Y=
+=bGe2
 -----END PGP SIGNATURE-----

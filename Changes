@@ -1,5 +1,9 @@
 Revision history for WWW-Google-URLShortener
 
+0.10    Sat Aug 30 01:55:18 2014
+        - Added section "REPOSITORY" to the pod document.
+        - Added key "META_MERGE" to Makefile.PL file.
+
 0.09    Sat Aug 09 00:33:20 2014
         - Tidied up README file.
 
